@@ -3,6 +3,7 @@ import { Row, Col, Button, Menu, Dropdown } from 'antd';
 import { CloseOutlined, PlusOutlined, DownOutlined } from '@ant-design/icons';
 import './compare.css';
 import TableNames from './table_name';
+import VendorNames from './vendor_name';
 
 class CompareProducts extends React.Component {
     constructor(props) {
@@ -47,6 +48,8 @@ class CompareProducts extends React.Component {
         this.displayButton = this.displayButton.bind(this);
         this.criteriaMenu = this.criteriaMenu.bind(this);
         this.vendorMenu = this.vendorMenu.bind(this);
+        this.displayCriteria = this.displayCriteria.bind(this);
+        this.displayVendor = this.displayVendor.bind(this);
     }
 
     addCriteria(e) {
@@ -82,12 +85,12 @@ class CompareProducts extends React.Component {
             <p>Note: To add more vendors to compare you need to first remove one
                 or more vendors. At a time maximum 4 vendors are allowed to compare.
             </p> :
-            // <Button type='text' onClick={this.addVendor}><PlusOutlined /> Add New Vendor</Button>
-            <Dropdown overlay={this.vendorMenu} trigger={['click']}>
-                <a href="#" className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-                    <PlusOutlined /> Add New Vendor
-                </a>
-            </Dropdown>
+            <Button type='text' onClick={this.addVendor}><PlusOutlined /> Add New Vendor</Button>
+            // <Dropdown overlay={this.vendorMenu} trigger={['click']}>
+            //     <a href="#" className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+            //         <PlusOutlined /> Add New Vendor
+            //     </a>
+            // </Dropdown>
     }
 
     vendorMenu() {
@@ -106,22 +109,40 @@ class CompareProducts extends React.Component {
         </Menu>
     }
 
+    displayCriteria() {
+        return this.state.currentCriteria.map ( (criteria, idx) => {
+            return <TableNames key={criteria+idx} criteria={criteria} />
+        })
+    }
+    
+    displayVendor() {
+
+        return this.state.currentVendor.map ( vendorId => {
+            return <VendorNames key={vendorId} vendor={this.state.globalState.vendor[vendorId]} />
+        })
+    }
+
     render() {
         return (
             <>
                 <div className='table'>
-                    {/* <Button type='text' onClick={this.addCriteria}>Add Criteria <CaretDownOutlined /></Button> */}
                     
-                    <Dropdown overlay={this.criteriaMenu} trigger={['click']}>
+                    <Button type='text' onClick={this.addCriteria}>Add Criteria <DownOutlined /></Button>
+                    {/* <Dropdown overlay={this.criteriaMenu} trigger={['click']}>
                         <a href="#" className="ant-dropdown-link" onClick={e => e.preventDefault()}>
                         Add Criteria <DownOutlined />
                         </a>
-                    </Dropdown>
+                    </Dropdown> */}
                     
-                    {/* {this.displayButton()} */}
-                    <TableNames numCompaniesDisplayed = { this.state.numCompaniesDisplayed }
-                        currentCriteria = { this.state.currentCriteria }
-                    />
+                    <ul>
+                        {this.displayButton()}
+                        {this.displayCriteria()}
+                    </ul>
+
+                    <ul>
+                        {this.displayVendor()}
+                    </ul>
+
                     <div>
                         {/* this is a test button. will need to change this for a X for every company */}
                         <Button type='text' onClick={this.removeVendor}><CloseOutlined /></Button>
