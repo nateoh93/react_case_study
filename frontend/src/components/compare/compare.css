@@ -9,3 +9,7 @@
 .vendor-dropdown {
     background: red;
 }
+
+menu {
+    z-index: 2
+}

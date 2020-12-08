@@ -1,4 +1,5 @@
 import React from 'react';
+import { CloseOutlined, PlusOutlined, DownOutlined } from '@ant-design/icons';
 import './compare.css';
 
 class TableNames extends React.Component {
@@ -10,7 +11,7 @@ class TableNames extends React.Component {
         return (
             <>
                 <ul>
-                    <li>{this.props.criteria}</li>
+                    <li>{this.props.criteria} <CloseOutlined /></li>
                 </ul>
             </>
         )
