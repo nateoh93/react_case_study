@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Menu, Dropdown } from 'antd';
+import { Row, Col, Button, Menu, Dropdown } from 'antd';
 import { CloseOutlined, PlusOutlined, DownOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import './compare.css';
 // import TableNames from './table_name';
@@ -11,7 +11,7 @@ class CompareProducts extends React.Component {
         this.state = {
             globalState: {
                 vendor: {
-                    1: {id: 1, vendorName: 'Google Drive', score: 6.0, productDescription:'Google does this', fundingHistory: 1, companyInfo: 'google.com', caseStudies: 2},
+                    1: {id: 1, vendorName: 'Google Drive', score: 6.0, productDescription:'Google does this', fundingHistory: 1, companyInfo: 'google.com',caseStudies: 2},
                     2: {id: 2, vendorName: 'Dropbox', score: 4.5, productDescription:'Dropbox does this', fundingHistory: 2, companyInfo: 'dropbox.com', caseStudies: 3},
                     3: {id: 3, vendorName: 'Salesforce', score: 6.2, productDescription:'Salesforce does this', fundingHistory: 3, companyInfo: 'salesforce.com', caseStudies: 4},
                     4: {id: 4, vendorName: 'Box', score: 6.1, productDescription:'Box does this', fundingHistory: 4, companyInfo: 'box.com', caseStudies: 6},
@@ -37,7 +37,7 @@ class CompareProducts extends React.Component {
                     'Founders': 'founders'
                 }
             },
-            currentVendor: [1, 2, 3],
+            currentVendor: [1, 2, 3, 4],
             currentCriteria: ['Score', 'Product Description', 'Company Info'],
         };
         this.addCriteria = this.addCriteria.bind(this);
@@ -127,15 +127,24 @@ class CompareProducts extends React.Component {
     displayVendor() {
         return this.state.currentVendor.map ( vendorId => {
             return (
-                <ul className='vendor-criteria'>
-                    <li key={vendorId} data-id={vendorId} onClick={this.removeVendor}>{this.state.globalState.vendor[vendorId].vendorName}
+                <Col className='vendor-criteria' key={vendorId} span={6}>
+                    <li data-id={vendorId} onClick={this.removeVendor}>{this.state.globalState.vendor[vendorId].vendorName}
                         <Button type='text'><CloseOutlined /></Button>
                     </li>
                     {this.state.currentCriteria.map ( (criteria, idx) => {
                         let crit = this.state.globalState.criteria[criteria];
                         return <li key={criteria+idx}>{this.state.globalState.vendor[vendorId][crit]}</li>
                     })}
-                </ul>
+                </Col>
+                // <ul className='vendor-criteria' key={vendorId}>
+                //     <li data-id={vendorId} onClick={this.removeVendor}>{this.state.globalState.vendor[vendorId].vendorName}
+                //         <Button type='text'><CloseOutlined /></Button>
+                //     </li>
+                //     {this.state.currentCriteria.map ( (criteria, idx) => {
+                //         let crit = this.state.globalState.criteria[criteria];
+                //         return <li key={criteria+idx}>{this.state.globalState.vendor[vendorId][crit]}</li>
+                //     })}
+                // </ul>
             )
         })
     }

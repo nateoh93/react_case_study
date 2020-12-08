@@ -16,7 +16,9 @@ menu {
 
 .table-info {
     display: flex;
-    border: 1px solid black
+    border: 1px solid black;
+    width: 1000px;
+    margin: 0 auto;
 }
 
 .vendor-info {
@@ -38,4 +40,12 @@ li {
 .vendor-criteria {
     display: flex;
     flex-direction: column;
+}
+
+.row {
+    display: flex;
+}
+
+p {
+    width: 200px;
 }
