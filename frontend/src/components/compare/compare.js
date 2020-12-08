@@ -25,9 +25,19 @@ class CompareProducts extends React.Component {
                     5: {id: 5, founded: '2004', keyInvestors: 'aaron', founders: 'alex' },
                     6: {id: 6, founded: '2005', keyInvestors: 'ted', founders: 'kendall' },
                 },
+                criteria: {
+                    score: 'Score',
+                    productDescription: 'Product Description',
+                    fundingHistory: 'Funding History',
+                    companyInfo: 'Company Info',
+                    caseStudies: 'Case Studies',
+                    founded: 'Founded',
+                    keyInvestors: 'Key Investors',
+                    founders: 'Founders'
+                }
             },
             currentVendor: [1, 2, 3, 4],
-            currentCriteria: ['score', 'productDescription', 'companyInfo'],
+            currentCriteria: ['Score', 'Product Description', 'Company Info'],
             numCompaniesDisplayed: 4,
         };
         this.addCriteria = this.addCriteria.bind(this);
@@ -108,8 +118,10 @@ class CompareProducts extends React.Component {
                         </a>
                     </Dropdown>
                     
-                    {this.displayButton()}
-                    <TableNames numCompaniesDisplayed={this.state.numCompaniesDisplayed}/>
+                    {/* {this.displayButton()} */}
+                    <TableNames numCompaniesDisplayed = { this.state.numCompaniesDisplayed }
+                        currentCriteria = { this.state.currentCriteria }
+                    />
                     <div>
                         {/* this is a test button. will need to change this for a X for every company */}
                         <Button type='text' onClick={this.removeVendor}><CloseOutlined /></Button>
