@@ -1,3 +1,11 @@
 .gutter-row {
     border: 1px solid blue;
 }
+
+.criteria-dropdown {
+    background: white;
+}
+
+.vendor-dropdown {
+    background: red;
+}
