@@ -13,3 +13,29 @@
 menu {
     z-index: 2
 }
+
+.table-info {
+    display: flex;
+    border: 1px solid black
+}
+
+.vendor-info {
+    display: flex;
+    /* flex-direction: column */
+    border: 1px solid black
+}
+
+.left-side, .right-side {
+    border: 1px solid black
+    
+}
+
+li {
+    border: 1px solid black
+
+}
+
+.vendor-criteria {
+    display: flex;
+    flex-direction: column;
+}

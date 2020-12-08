@@ -1,11 +1,9 @@
 import React from 'react';
-import { CloseOutlined, PlusOutlined, DownOutlined } from '@ant-design/icons';
+import { CloseOutlined } from '@ant-design/icons';
 import './compare.css';
 
 class TableNames extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+    
 
     render() {
         return (
