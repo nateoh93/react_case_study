@@ -9,7 +9,7 @@ class VendorSubCriteriaItem extends React.Component {
 
     displaySubCriteria() {
         return Object.values(this.props.vendorSubCriteria).map( (subCriteria, idx) => {
-            return <li key={idx}>{subCriteria}</li>
+            return <li className={this.props.display} key={idx}>{subCriteria}</li>
         })
     }
 

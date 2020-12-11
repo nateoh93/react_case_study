@@ -1,7 +1,8 @@
 import React from 'react';
 import CriteriaItem from './criteria_item'
 import VendorSubCriteriaItem from './vendor_item'
-import { CloseOutlined, PlusOutlined, DownOutlined, CloseCircleOutlined } from '@ant-design/icons';
+import { CloseOutlined, PlusOutlined, DownOutlined, CloseCircleOutlined, 
+    CaretRightOutlined, CaretDownOutlined } from '@ant-design/icons';
 import './compare.css';
 
 class CompareProducts extends React.Component {
@@ -43,6 +44,7 @@ class CompareProducts extends React.Component {
             },
             currentVendor: [1, 2, 3, 4],
             currentCriteria: ['Score', 'Product Description', 'Company Info'],
+            displaySubCriteria: 'no-display',
         };
         this.addCriteria = this.addCriteria.bind(this);
         this.removeCriteria = this.removeCriteria.bind(this);
@@ -52,6 +54,7 @@ class CompareProducts extends React.Component {
         this.criteriaMenu = this.criteriaMenu.bind(this);
         this.vendorMenu = this.vendorMenu.bind(this);
         this.displayCriteria = this.displayCriteria.bind(this);
+        this.displaySubCriteria = this.displaySubCriteria.bind(this);
         this.displayVendor = this.displayVendor.bind(this);
     }
 
@@ -84,13 +87,15 @@ class CompareProducts extends React.Component {
     displayCriteria() {
         return this.state.currentCriteria.map ( (criteria, idx) => {
             if (this.state.globalState.criteria[criteria]) {
-                //add event handler to hide / display subcategory
                 return (<>
                         <li key={idx}>
+                            <button onClick={this.displaySubCriteria}>
+                                {this.state.displaySubCriteria === 'display' ? <CaretDownOutlined /> : <CaretRightOutlined />}
+                            </button>
                             {criteria}
                             <button data-name={criteria} onClick={this.removeCriteria}><CloseCircleOutlined /></button>
                         </li>
-                        <CriteriaItem subCriteria={this.state.globalState.criteria[criteria]}/>
+                        <CriteriaItem display={this.state.displaySubCriteria} subCriteria={this.state.globalState.criteria[criteria]}/>
                 </>)
             } else {
                 return (<li key={idx}>
@@ -98,6 +103,12 @@ class CompareProducts extends React.Component {
                     </li>)
             }
         })
+    }
+
+    displaySubCriteria(e) {
+        e.preventDefault();
+        let status = this.state.displaySubCriteria === 'display' ? 'no-display' : 'display';
+        this.setState({displaySubCriteria: status});
     }
 
     displayVendorButton() {
@@ -151,7 +162,7 @@ class CompareProducts extends React.Component {
                         if (this.state.globalState[criteria]) {    
                             return (<>
                                 <li key={criteria+idx}>{this.state.globalState.vendorCriteria[vendorId][criteria]}</li>
-                                <VendorSubCriteriaItem vendorSubCriteria={this.state.globalState[criteria][vendorId]} />
+                                <VendorSubCriteriaItem display={this.state.displaySubCriteria} vendorSubCriteria={this.state.globalState[criteria][vendorId]} />
                             </>)
                         } else {
                             return <li key={criteria+idx}>{this.state.globalState.vendorCriteria[vendorId][criteria]}</li>
