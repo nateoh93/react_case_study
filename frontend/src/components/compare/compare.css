@@ -7,7 +7,21 @@
 }
 
 .vendor-dropdown {
-    background: red;
+    background: gray;
+    position: absolute;
+    display: none;
+}
+
+.criteria-dropdown {
+    background: gray;
+    position: absolute;
+    display: none;
+}
+
+.dropdown-link:focus + .vendor-dropdown, .vendor-dropdown:hover,
+.criteria-dropdown-link:focus + .criteria-dropdown, .criteria-dropdown:hover {
+    display: block;
+    cursor: pointer;
 }
 
 menu {
@@ -49,3 +63,11 @@ li {
 p {
     width: 200px;
 }
+
+.dropdown-link {
+    position: relative;
+}
+.criteria-dropdown-link {
+    position: relative;
+}
+

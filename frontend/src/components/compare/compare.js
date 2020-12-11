@@ -2,8 +2,6 @@ import React from 'react';
 import { Row, Col, Button, Menu, Dropdown } from 'antd';
 import { CloseOutlined, PlusOutlined, DownOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import './compare.css';
-// import TableNames from './table_name';
-// import VendorNames from './vendor_name';
 
 class CompareProducts extends React.Component {
     constructor(props) {
@@ -52,21 +50,26 @@ class CompareProducts extends React.Component {
     }
 
     criteriaMenu() {
-        return <Menu className='criteria-dropdown'>
-            <Menu.Item key="1">1st menu item</Menu.Item>
-            <Menu.Item key="2">2nd memu item</Menu.Item>
-            <Menu.Item key="3">3rd menu item</Menu.Item>
-        </Menu>
+        let criteriaNotListed = Object.keys(this.state.globalState.criteria).filter( criteria => {
+            return !this.state.currentCriteria.includes(criteria)
+        });
+
+        return (<ul className='criteria-dropdown' >
+            {criteriaNotListed.map ( (criteria, idx) => {
+                return <li key={idx} onClick={this.addCriteria}>{criteria}</li>
+            })}
+        </ul>)
     }
 
     addCriteria(e) {
         e.preventDefault();
-        
+        const addedCrit = e.currentTarget.innerText;
+        const newCriteriaList = this.state.currentCriteria.concat(addedCrit);
+        this.setState({currentCriteria: newCriteriaList});
     }
     
     removeCriteria(e) {
         e.preventDefault();
-        
         const removedCrit = e.currentTarget.innerText;
         const updatedCriteria = this.state.currentCriteria.filter( criteria => criteria !== removedCrit);
         this.setState({currentCriteria: updatedCriteria});
@@ -86,39 +89,35 @@ class CompareProducts extends React.Component {
             <p>Note: To add more vendors to compare you need to first remove one
                 or more vendors. At a time maximum 4 vendors are allowed to compare.
             </p> :
-            // <Button type='text' onClick={this.addVendor}><PlusOutlined /> Add New Vendor</Button>
-            <Dropdown overlay={this.vendorMenu} >
-                <button className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+            <div>
+                <button className="dropdown-link" onClick={this.vendorMenu}>
                     <PlusOutlined /> Add New Vendor
                 </button>
-            </Dropdown>
+                {this.vendorMenu()}
+            </div>
     }
 
     vendorMenu() {
-        let vendorNotListed = Object.values(this.state.globalState.vendor).filter( vendor => !this.state.currentVendor.includes(vendor['id']));
-        return (<div className='vendor-dropdown' >
+        let vendorNotListed = Object.values(this.state.globalState.vendor).filter( vendor => {
+            return !this.state.currentVendor.includes(vendor['id'])
+        });
+
+        return (<ul className='vendor-dropdown' >
             {vendorNotListed.map ( vendor => {
-                return (
-                    <li key={vendor.id} data-id={vendor.id} onClick={this.addVendor}>{vendor.vendorName}</li>
-                )
+                return <li key={vendor.id} data-id={vendor.id} onClick={this.addVendor}>{vendor.vendorName}</li>
             })}
-        </div>)
+        </ul>)
     }
 
     addVendor(e) {
         e.preventDefault();
-
-        // console.log(e)
-        // console.log(e.currentTarget.dataset.id)
-
         const addedId = parseInt(e.currentTarget.dataset.id)
-        let updatedVendors = this.state.currentVendor.push(addedId);
-        this.setState({currentVendor: updatedVendors});
+        const newVendorList = this.state.currentVendor.concat(addedId);
+        this.setState({currentVendor: newVendorList});
     }
     
     removeVendor(e) {
         e.preventDefault();
-        
         const removedId = parseInt(e.currentTarget.dataset.id);
         const updatedCurrentVendor = this.state.currentVendor.filter( vendorId => vendorId !== removedId);
         this.setState({currentVendor: updatedCurrentVendor});
@@ -127,7 +126,7 @@ class CompareProducts extends React.Component {
     displayVendor() {
         return this.state.currentVendor.map ( vendorId => {
             return (
-                <Col className='vendor-criteria' key={vendorId} span={6}>
+                <ul className='vendor-criteria' key={vendorId}>
                     <li data-id={vendorId} onClick={this.removeVendor}>{this.state.globalState.vendor[vendorId].vendorName}
                         <Button type='text'><CloseOutlined /></Button>
                     </li>
@@ -135,16 +134,7 @@ class CompareProducts extends React.Component {
                         let crit = this.state.globalState.criteria[criteria];
                         return <li key={criteria+idx}>{this.state.globalState.vendor[vendorId][crit]}</li>
                     })}
-                </Col>
-                // <ul className='vendor-criteria' key={vendorId}>
-                //     <li data-id={vendorId} onClick={this.removeVendor}>{this.state.globalState.vendor[vendorId].vendorName}
-                //         <Button type='text'><CloseOutlined /></Button>
-                //     </li>
-                //     {this.state.currentCriteria.map ( (criteria, idx) => {
-                //         let crit = this.state.globalState.criteria[criteria];
-                //         return <li key={criteria+idx}>{this.state.globalState.vendor[vendorId][crit]}</li>
-                //     })}
-                // </ul>
+                </ul>
             )
         })
     }
@@ -153,12 +143,8 @@ class CompareProducts extends React.Component {
         return (
             <>
                 <div className='table'>
-                    <Button type='text' onClick={this.addCriteria}>Add Criteria <DownOutlined /></Button>
-                    {/* <Dropdown overlay={this.criteriaMenu} trigger={['click']}>
-                        <a href="#" className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-                        Add Criteria <DownOutlined />
-                        </a>
-                    </Dropdown> */}
+                    <Button type='text' className='criteria-dropdown-link' onClick={this.criteriaMenu}>Add Criteria <DownOutlined /></Button>
+                    {this.criteriaMenu()}
                     
                     <div className='table-info'>
                         <div className='left-side'>
