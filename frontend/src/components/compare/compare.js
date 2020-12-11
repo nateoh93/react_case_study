@@ -70,15 +70,19 @@ class CompareProducts extends React.Component {
     
     removeCriteria(e) {
         e.preventDefault();
-        const removedCrit = e.currentTarget.innerText;
+        // const removedCrit = e.currentTarget.innerText;
+        const removedCrit = e.currentTarget.dataset.name
+        console.log(removedCrit)
+        // console.log(e.currentTarget)
         const updatedCriteria = this.state.currentCriteria.filter( criteria => criteria !== removedCrit);
         this.setState({currentCriteria: updatedCriteria});
     }
 
     displayCriteria() {
         return this.state.currentCriteria.map ( (criteria, idx) => {
-            return (<li key={idx} onClick={this.removeCriteria}>
-                    {criteria}<Button type='text'><CloseCircleOutlined /></Button>
+            return (<li key={idx}>
+                    {criteria}
+                    <button data-name={criteria} onClick={this.removeCriteria}><CloseCircleOutlined /></button>
                 </li>
             )
         })
