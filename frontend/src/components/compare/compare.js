@@ -1,7 +1,6 @@
 import React from 'react';
 import CriteriaItem from './criteria_item'
 import VendorSubCriteriaItem from './vendor_item'
-import { Row, Col, Button, Menu, Dropdown } from 'antd';
 import { CloseOutlined, PlusOutlined, DownOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import './compare.css';
 
@@ -95,8 +94,7 @@ class CompareProducts extends React.Component {
                 </>)
             } else {
                 return (<li key={idx}>
-                        {criteria}
-                        <button data-name={criteria} onClick={this.removeCriteria}><CloseCircleOutlined /></button>
+                        {criteria}<button data-name={criteria} onClick={this.removeCriteria}><CloseCircleOutlined /></button>
                     </li>)
             }
         })
@@ -146,20 +144,18 @@ class CompareProducts extends React.Component {
             return (
                 <ul className='vendor-criteria' key={vendorId}>
                     <li data-id={vendorId} onClick={this.removeVendor}>{this.state.globalState.vendor[vendorId].vendorName}
-                        <Button type='text'><CloseOutlined /></Button>
+                        <button type='text'><CloseOutlined /></button>
                     </li>
-                    {this.state.currentCriteria.map ( (criteria, idx) => {
-                            if (this.state.globalState[criteria]) {    
-                                return (<>
-                                    <li key={criteria+idx}>{this.state.globalState.vendorCriteria[vendorId][criteria]}</li>
-                                    <VendorSubCriteriaItem vendorSubCriteria={this.state.globalState[criteria][vendorId]} />
-                                </>)
-                            } else {
 
-                                return (<>
-                                    <li key={criteria+idx}>{this.state.globalState.vendorCriteria[vendorId][criteria]}</li>
-                                </>)
-                            }
+                    {this.state.currentCriteria.map ( (criteria, idx) => {
+                        if (this.state.globalState[criteria]) {    
+                            return (<>
+                                <li key={criteria+idx}>{this.state.globalState.vendorCriteria[vendorId][criteria]}</li>
+                                <VendorSubCriteriaItem vendorSubCriteria={this.state.globalState[criteria][vendorId]} />
+                            </>)
+                        } else {
+                            return <li key={criteria+idx}>{this.state.globalState.vendorCriteria[vendorId][criteria]}</li>
+                        }
                     })}
                 </ul>
             )
@@ -170,7 +166,7 @@ class CompareProducts extends React.Component {
         return (
             <>
                 <div className='table'>
-                    <Button type='text' className='criteria-dropdown-link' onClick={this.criteriaMenu}>Add Criteria <DownOutlined /></Button>
+                    <button type='text' className='criteria-dropdown-link' onClick={this.criteriaMenu}>Add Criteria <DownOutlined /></button>
                     {this.criteriaMenu()}
                     
                     <div className='table-info'>
