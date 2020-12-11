@@ -9,31 +9,30 @@ class CompareProducts extends React.Component {
         this.state = {
             globalState: {
                 vendor: {
-                    1: {id: 1, vendorName: 'Google Drive', score: 6.0, productDescription:'Google does this', fundingHistory: 1, companyInfo: 'google.com',caseStudies: 2},
-                    2: {id: 2, vendorName: 'Dropbox', score: 4.5, productDescription:'Dropbox does this', fundingHistory: 2, companyInfo: 'dropbox.com', caseStudies: 3},
-                    3: {id: 3, vendorName: 'Salesforce', score: 6.2, productDescription:'Salesforce does this', fundingHistory: 3, companyInfo: 'salesforce.com', caseStudies: 4},
-                    4: {id: 4, vendorName: 'Box', score: 6.1, productDescription:'Box does this', fundingHistory: 4, companyInfo: 'box.com', caseStudies: 6},
-                    5: {id: 5, vendorName: 'LinkedIn', score: 7.0, productDescription:'LinkedIn does this', fundingHistory: 5, companyInfo: 'linkedin.com', caseStudies: 2},
-                    6: {id: 6, vendorName: 'Twitter', score: 5.0, productDescription:'Twitter does this', fundingHistory: 6, companyInfo: 'twitter.com', caseStudies: 1}
+                    1: {id: 1, vendorName: 'Google Drive', vendorCriteria: 1},
+                    2: {id: 2, vendorName: 'Dropbox', vendorCriteria: 2},
+                    3: {id: 3, vendorName: 'Salesforce', vendorCriteria: 3},
+                    4: {id: 4, vendorName: 'Box', vendorCriteria: 4},
+                    5: {id: 5, vendorName: 'LinkedIn', vendorCriteria: 5},
+                    6: {id: 6, vendorName: 'Twitter', vendorCriteria: 6}
                 },
-                fundingHistory: {
-                    1: {id: 1, founded: '2000', keyInvestors: 'john', founders: 'amy' },
-                    2: {id: 2, founded: '2001', keyInvestors: 'jake', founders: 'jen' },
-                    3: {id: 3, founded: '2002', keyInvestors: 'brian', founders: 'lina' },
-                    4: {id: 4, founded: '2003', keyInvestors: 'derek', founders: 'nicole' },
-                    5: {id: 5, founded: '2004', keyInvestors: 'aaron', founders: 'alex' },
-                    6: {id: 6, founded: '2005', keyInvestors: 'ted', founders: 'kendall' },
+                'Funding History': {
+                    1: {'Founded': '2000', 'Key Investors': 'john', 'Founders': 'amy' },
+                    2: {'Founded': '2001', 'Key Investors': 'jake', 'Founders': 'jen' },
+                    3: {'Founded': '2002', 'Key Investors': 'brian', 'Founders': 'lina' },
+                    4: {'Founded': '2003', 'Key Investors': 'derek', 'Founders': 'nicole' },
+                    5: {'Founded': '2004', 'Key Investors': 'aaron', 'Founders': 'alex' },
+                    6: {'Founded': '2005', 'Key Investors': 'ted', 'Founders': 'kendall' },
                 },
-                criteria: {
-                    'Score': 'score',
-                    'Product Description': 'productDescription',
-                    'Funding History': 'fundingHistory',
-                    'Company Info': 'companyInfo',
-                    'Case Studies': 'caseStudies',
-                    'Founded': 'founded',
-                    'Key Investors': 'keyInvestors',
-                    'Founders': 'founders'
-                }
+                vendorCriteria: {
+                    1: {'Score': 6.0, 'Product Description':'Google does this', 'Funding History': 1, 'Company Info': 'google.com','Case Studies': 2},
+                    2: {'Score': 4.5, 'Product Description':'Dropbox does this', 'Funding History': 2, 'Company Info': 'dropbox.com', 'Case Studies': 3},
+                    3: {'Score': 6.2, 'Product Description':'Salesforce does this', 'Funding History': 3, 'Company Info': 'salesforce.com', 'Case Studies': 4},
+                    4: {'Score': 6.1, 'Product Description':'Box does this', 'Funding History': 4, 'Company Info': 'box.com', 'Case Studies': 6},
+                    5: {'Score': 7.0, 'Product Description':'LinkedIn does this', 'Funding History': 5, 'Company Info': 'linkedin.com', 'Case Studies': 2},
+                    6: {'Score': 5.0, 'Product Description':'Twitter does this', 'Funding History': 6, 'Company Info': 'twitter.com', 'Case Studies': 1},
+                },
+                criteria: ['Score', 'Product Description', 'Funding History', 'Company Info', 'Case Studies']
             },
             currentVendor: [1, 2, 3, 4],
             currentCriteria: ['Score', 'Product Description', 'Company Info'],
@@ -50,7 +49,7 @@ class CompareProducts extends React.Component {
     }
 
     criteriaMenu() {
-        let criteriaNotListed = Object.keys(this.state.globalState.criteria).filter( criteria => {
+        let criteriaNotListed = this.state.globalState.criteria.filter( criteria => {
             return !this.state.currentCriteria.includes(criteria)
         });
 
@@ -70,10 +69,7 @@ class CompareProducts extends React.Component {
     
     removeCriteria(e) {
         e.preventDefault();
-        // const removedCrit = e.currentTarget.innerText;
         const removedCrit = e.currentTarget.dataset.name
-        console.log(removedCrit)
-        // console.log(e.currentTarget)
         const updatedCriteria = this.state.currentCriteria.filter( criteria => criteria !== removedCrit);
         this.setState({currentCriteria: updatedCriteria});
     }
@@ -135,8 +131,12 @@ class CompareProducts extends React.Component {
                         <Button type='text'><CloseOutlined /></Button>
                     </li>
                     {this.state.currentCriteria.map ( (criteria, idx) => {
-                        let crit = this.state.globalState.criteria[criteria];
-                        return <li key={criteria+idx}>{this.state.globalState.vendor[vendorId][crit]}</li>
+                            if (this.state.globalState[criteria]) {
+                                
+                            }
+                            return (<>
+                                <li key={criteria+idx}>{this.state.globalState.vendorCriteria[vendorId][criteria]}</li>
+                            </>)
                     })}
                 </ul>
             )
