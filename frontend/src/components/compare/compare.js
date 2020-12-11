@@ -1,4 +1,6 @@
 import React from 'react';
+import CriteriaItem from './criteria_item'
+import VendorSubCriteriaItem from './vendor_item'
 import { Row, Col, Button, Menu, Dropdown } from 'antd';
 import { CloseOutlined, PlusOutlined, DownOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import './compare.css';
@@ -32,7 +34,13 @@ class CompareProducts extends React.Component {
                     5: {'Score': 7.0, 'Product Description':'LinkedIn does this', 'Funding History': 5, 'Company Info': 'linkedin.com', 'Case Studies': 2},
                     6: {'Score': 5.0, 'Product Description':'Twitter does this', 'Funding History': 6, 'Company Info': 'twitter.com', 'Case Studies': 1},
                 },
-                criteria: ['Score', 'Product Description', 'Funding History', 'Company Info', 'Case Studies']
+                criteria: {
+                    'Score': null, 
+                    'Product Description': null, 
+                    'Funding History': ['Founded', 'Key Investors', 'Founders'], 
+                    'Company Info': null, 
+                    'Case Studies': null
+                }
             },
             currentVendor: [1, 2, 3, 4],
             currentCriteria: ['Score', 'Product Description', 'Company Info'],
@@ -49,7 +57,7 @@ class CompareProducts extends React.Component {
     }
 
     criteriaMenu() {
-        let criteriaNotListed = this.state.globalState.criteria.filter( criteria => {
+        let criteriaNotListed = Object.keys(this.state.globalState.criteria).filter( criteria => {
             return !this.state.currentCriteria.includes(criteria)
         });
 
@@ -76,11 +84,21 @@ class CompareProducts extends React.Component {
 
     displayCriteria() {
         return this.state.currentCriteria.map ( (criteria, idx) => {
-            return (<li key={idx}>
-                    {criteria}
-                    <button data-name={criteria} onClick={this.removeCriteria}><CloseCircleOutlined /></button>
-                </li>
-            )
+            if (this.state.globalState.criteria[criteria]) {
+                //add event handler to hide / display subcategory
+                return (<>
+                        <li key={idx}>
+                            {criteria}
+                            <button data-name={criteria} onClick={this.removeCriteria}><CloseCircleOutlined /></button>
+                        </li>
+                        <CriteriaItem subCriteria={this.state.globalState.criteria[criteria]}/>
+                </>)
+            } else {
+                return (<li key={idx}>
+                        {criteria}
+                        <button data-name={criteria} onClick={this.removeCriteria}><CloseCircleOutlined /></button>
+                    </li>)
+            }
         })
     }
 
@@ -131,12 +149,17 @@ class CompareProducts extends React.Component {
                         <Button type='text'><CloseOutlined /></Button>
                     </li>
                     {this.state.currentCriteria.map ( (criteria, idx) => {
-                            if (this.state.globalState[criteria]) {
-                                
+                            if (this.state.globalState[criteria]) {    
+                                return (<>
+                                    <li key={criteria+idx}>{this.state.globalState.vendorCriteria[vendorId][criteria]}</li>
+                                    <VendorSubCriteriaItem vendorSubCriteria={this.state.globalState[criteria][vendorId]} />
+                                </>)
+                            } else {
+
+                                return (<>
+                                    <li key={criteria+idx}>{this.state.globalState.vendorCriteria[vendorId][criteria]}</li>
+                                </>)
                             }
-                            return (<>
-                                <li key={criteria+idx}>{this.state.globalState.vendorCriteria[vendorId][criteria]}</li>
-                            </>)
                     })}
                 </ul>
             )
