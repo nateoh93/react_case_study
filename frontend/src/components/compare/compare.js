@@ -19,12 +19,12 @@ class CompareProducts extends React.Component {
                     6: {id: 6, vendorName: 'Twitter', vendorCriteria: 6}
                 },
                 'Funding History': {
-                    1: {'Founded': '2000', 'Key Investors': 'john', 'Founders': 'amy' },
-                    2: {'Founded': '2001', 'Key Investors': 'jake', 'Founders': 'jen' },
-                    3: {'Founded': '2002', 'Key Investors': 'brian', 'Founders': 'lina' },
-                    4: {'Founded': '2003', 'Key Investors': 'derek', 'Founders': 'nicole' },
-                    5: {'Founded': '2004', 'Key Investors': 'aaron', 'Founders': 'alex' },
-                    6: {'Founded': '2005', 'Key Investors': 'ted', 'Founders': 'kendall' },
+                    1: {'Founded': '2000', 'Key Investors': 'John', 'Founders': 'Amy' },
+                    2: {'Founded': '2001', 'Key Investors': 'Jake', 'Founders': 'Jen' },
+                    3: {'Founded': '2002', 'Key Investors': 'Brian', 'Founders': 'Lina' },
+                    4: {'Founded': '2003', 'Key Investors': 'Derek', 'Founders': 'Nicole' },
+                    5: {'Founded': '2004', 'Key Investors': 'Aaron', 'Founders': 'Alex' },
+                    6: {'Founded': '2005', 'Key Investors': 'Ted', 'Founders': 'Kendall' },
                 },
                 vendorCriteria: {
                     1: {'Score': 6.0, 'Product Description':'Google does this', 'Funding History': 1, 'Company Info': 'google.com','Case Studies': 2},
@@ -87,8 +87,8 @@ class CompareProducts extends React.Component {
     displayCriteria() {
         return this.state.currentCriteria.map ( (criteria, idx) => {
             if (this.state.globalState.criteria[criteria]) {
-                return (<>
-                        <li key={idx}>
+                return (<ul key={idx}>
+                        <li>
                             <button onClick={this.displaySubCriteria}>
                                 {this.state.displaySubCriteria === 'display' ? <CaretDownOutlined /> : <CaretRightOutlined />}
                             </button>
@@ -96,7 +96,7 @@ class CompareProducts extends React.Component {
                             <button data-name={criteria} onClick={this.removeCriteria}><CloseCircleOutlined /></button>
                         </li>
                         <CriteriaItem display={this.state.displaySubCriteria} subCriteria={this.state.globalState.criteria[criteria]}/>
-                </>)
+                </ul>)
             } else {
                 return (<li key={idx}>
                         {criteria}<button data-name={criteria} onClick={this.removeCriteria}><CloseCircleOutlined /></button>
@@ -154,16 +154,16 @@ class CompareProducts extends React.Component {
         return this.state.currentVendor.map ( vendorId => {
             return (
                 <ul className='vendor-criteria' key={vendorId}>
-                    <li data-id={vendorId} onClick={this.removeVendor}>{this.state.globalState.vendor[vendorId].vendorName}
+                    <li className='vendor-name' data-id={vendorId} onClick={this.removeVendor}>{this.state.globalState.vendor[vendorId].vendorName}
                         <button type='text'><CloseOutlined /></button>
                     </li>
 
                     {this.state.currentCriteria.map ( (criteria, idx) => {
                         if (this.state.globalState[criteria]) {    
-                            return (<>
-                                <li key={criteria+idx}>{this.state.globalState.vendorCriteria[vendorId][criteria]}</li>
+                            return (<ul key={criteria+idx}>
+                                <li>{this.state.globalState.vendorCriteria[vendorId][criteria]}</li>
                                 <VendorSubCriteriaItem display={this.state.displaySubCriteria} vendorSubCriteria={this.state.globalState[criteria][vendorId]} />
-                            </>)
+                            </ul>)
                         } else {
                             return <li key={criteria+idx}>{this.state.globalState.vendorCriteria[vendorId][criteria]}</li>
                         }
