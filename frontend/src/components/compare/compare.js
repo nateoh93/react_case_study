@@ -89,7 +89,7 @@ class CompareProducts extends React.Component {
             if (this.state.globalState.criteria[criteria]) {
                 return (<ul key={idx}>
                         <li>
-                            <button onClick={this.displaySubCriteria}>
+                            <button className='subcriteria' onClick={this.displaySubCriteria}>
                                 {this.state.displaySubCriteria === 'display' ? <CaretDownOutlined /> : <CaretRightOutlined />}
                             </button>
                             {criteria}
