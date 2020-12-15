@@ -1,21 +1,36 @@
-.gutter-row {
-    border: 1px solid blue;
+.table {
+    margin: 35vh auto 0;
+}
+
+.vendor-dropdown {
+    background: white;
+    border: 1px solid lightgrey;
+    position: absolute;
+    display: none;
+    top: 25px;
+    left: 5px;
+    z-index: 1;
+    width: 100px;
 }
 
 .criteria-dropdown {
     background: white;
-}
-
-.vendor-dropdown {
-    background: gray;
+    border: 1px solid lightgrey;
     position: absolute;
     display: none;
+    top: 21px;
+    left: 0;
+    z-index: 1;
+    width: 125px;
 }
 
-.criteria-dropdown {
-    background: gray;
-    position: absolute;
-    display: none;
+.criteria-dropdown li, .vendor-dropdown li {
+    height: 20px;
+    /* border: none; */
+}
+
+.criteria-dropdown li:first-child, .vendor-dropdown li:first-child {
+    border: none;
 }
 
 .dropdown-link:focus + .vendor-dropdown, .vendor-dropdown:hover,
@@ -24,13 +39,24 @@
     cursor: pointer;
 }
 
+.criteria-dropdown li:hover, .vendor-dropdown li:hover {
+    background-color: lightgrey;
+}
+
 menu {
     z-index: 2
 }
 
+.criteria {
+    width: 800px;
+    margin: 0 auto;
+    margin-bottom: 5px;
+    position: relative
+}
+
 .table-info {
     display: flex;
-    border: 1px solid black;
+    border: 1px solid lightgrey;
     width: 800px;
     margin: 0 auto;
 }
@@ -38,12 +64,12 @@ menu {
 .vendor-info {
     display: flex;
     /* flex-direction: column */
-    border: 1px solid black;
+    /* border: 1px solid black; */
     width: 500px;
 }
 
 .left-side, .right-side {
-    border: 1px solid black
+    /* padding-left: 5px; */
 }
 
 .left-side {
@@ -55,14 +81,18 @@ menu {
 }
 
 li {
-    border: 1px solid black;
+    border-top: 1px solid lightgrey;
+    /* border-top: 1px solid black; */
     height: 40px;
+    padding-left: 5px;
 }
 
 .vendor-criteria {
     display: flex;
     flex-direction: column;
     width: 100%;
+    height: 100%;
+    border-left: 1px solid lightgray;
 }
 
 .row {
@@ -72,6 +102,7 @@ li {
 p {
     width: 200px;
     height: 120px;
+    padding: 5px 0 0 5px;
 }
 
 .vendor-name {
@@ -79,9 +110,11 @@ p {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding-top: 5px;
+    position: relative;
 }
 
-.vendor-name li {
+.vendor-name div {
     width: 100px;
     display: flex;
     justify-content: center;
@@ -90,6 +123,10 @@ p {
 .remove-vendor {
     display: flex;
     height: 100%;
+    position: absolute;
+    top: 2%;
+    left: 87%;
+    font-size: 13px;
 }
 
 .dropdown-link {
@@ -101,4 +138,8 @@ p {
 
 .no-display {
     display: none;
+}
+
+.left-side p {
+    position: relative;
 }

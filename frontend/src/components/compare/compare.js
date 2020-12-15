@@ -116,12 +116,10 @@ class CompareProducts extends React.Component {
             <p>Note: To add more vendors to compare you need to first remove one
                 or more vendors. At a time maximum 4 vendors are allowed to compare.
             </p> :
-            <div>
-                <p>
-                    <button className="dropdown-link" onClick={this.vendorMenu}><PlusOutlined /> Add New Vendor</button>
-                    {this.vendorMenu()}
-                </p>
-            </div>
+            <p>
+                <button className="dropdown-link" onClick={this.vendorMenu}><PlusOutlined /> Add New Vendor</button>
+                {this.vendorMenu()}
+            </p>
     }
 
     vendorMenu() {
@@ -155,7 +153,7 @@ class CompareProducts extends React.Component {
             return (
                 <div className='vendor-criteria' key={vendorId}>
                     <div className='vendor-name'>
-                        <li>{this.state.globalState.vendor[vendorId].vendorName}</li>
+                        <div>{this.state.globalState.vendor[vendorId].vendorName}</div>
                         <button className='remove-vendor' data-id={vendorId} onClick={this.removeVendor}><CloseOutlined /></button>
                     </div>
 
@@ -178,8 +176,10 @@ class CompareProducts extends React.Component {
         return (
             <>
                 <div className='table'>
-                    <button type='text' className='criteria-dropdown-link' onClick={this.criteriaMenu}>Add Criteria <DownOutlined /></button>
-                    {this.criteriaMenu()}
+                    <div className='criteria'>
+                        <button type='text' className='criteria-dropdown-link' onClick={this.criteriaMenu}>Add Criteria <DownOutlined /></button>
+                        {this.criteriaMenu()}
+                    </div>
                     
                     <div className='table-info'>
                         <div className='left-side'>
