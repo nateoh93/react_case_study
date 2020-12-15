@@ -31,7 +31,7 @@ menu {
 .table-info {
     display: flex;
     border: 1px solid black;
-    width: 1000px;
+    width: 800px;
     margin: 0 auto;
 }
 
@@ -55,8 +55,8 @@ menu {
 }
 
 li {
-    border: 1px solid black
-
+    border: 1px solid black;
+    height: 40px;
 }
 
 .vendor-criteria {
@@ -71,6 +71,25 @@ li {
 
 p {
     width: 200px;
+    height: 120px;
+}
+
+.vendor-name {
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vendor-name li {
+    width: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+.remove-vendor {
+    display: flex;
+    height: 100%;
 }
 
 .dropdown-link {

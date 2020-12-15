@@ -27,15 +27,15 @@ class CompareProducts extends React.Component {
                     6: {'Founded': '2005', 'Key Investors': 'Ted', 'Founders': 'Kendall' },
                 },
                 vendorCriteria: {
-                    1: {'Score': 6.0, 'Product Description':'Google does this', 'Funding History': 1, 'Company Info': 'google.com','Case Studies': 2},
-                    2: {'Score': 4.5, 'Product Description':'Dropbox does this', 'Funding History': 2, 'Company Info': 'dropbox.com', 'Case Studies': 3},
-                    3: {'Score': 6.2, 'Product Description':'Salesforce does this', 'Funding History': 3, 'Company Info': 'salesforce.com', 'Case Studies': 4},
-                    4: {'Score': 6.1, 'Product Description':'Box does this', 'Funding History': 4, 'Company Info': 'box.com', 'Case Studies': 6},
-                    5: {'Score': 7.0, 'Product Description':'LinkedIn does this', 'Funding History': 5, 'Company Info': 'linkedin.com', 'Case Studies': 2},
-                    6: {'Score': 5.0, 'Product Description':'Twitter does this', 'Funding History': 6, 'Company Info': 'twitter.com', 'Case Studies': 1},
+                    1: {'Overall Score': 6.0, 'Product Description':'Google does this', 'Funding History': 1, 'Company Info': 'google.com','Case Studies': 2},
+                    2: {'Overall Score': 4.5, 'Product Description':'Dropbox does this', 'Funding History': 2, 'Company Info': 'dropbox.com', 'Case Studies': 3},
+                    3: {'Overall Score': 6.2, 'Product Description':'Salesforce does this', 'Funding History': 3, 'Company Info': 'salesforce.com', 'Case Studies': 4},
+                    4: {'Overall Score': 6.1, 'Product Description':'Box does this', 'Funding History': 4, 'Company Info': 'box.com', 'Case Studies': 6},
+                    5: {'Overall Score': 7.0, 'Product Description':'LinkedIn does this', 'Funding History': 5, 'Company Info': 'linkedin.com', 'Case Studies': 2},
+                    6: {'Overall Score': 5.0, 'Product Description':'Twitter does this', 'Funding History': 6, 'Company Info': 'twitter.com', 'Case Studies': 1},
                 },
                 criteria: {
-                    'Score': null, 
+                    'Overall Score': null, 
                     'Product Description': null, 
                     'Funding History': ['Founded', 'Key Investors', 'Founders'], 
                     'Company Info': null, 
@@ -43,7 +43,7 @@ class CompareProducts extends React.Component {
                 }
             },
             currentVendor: [1, 2, 3, 4],
-            currentCriteria: ['Score', 'Product Description', 'Company Info'],
+            currentCriteria: ['Overall Score', 'Product Description', 'Company Info'],
             displaySubCriteria: 'no-display',
         };
         this.addCriteria = this.addCriteria.bind(this);
@@ -117,10 +117,10 @@ class CompareProducts extends React.Component {
                 or more vendors. At a time maximum 4 vendors are allowed to compare.
             </p> :
             <div>
-                <button className="dropdown-link" onClick={this.vendorMenu}>
-                    <PlusOutlined /> Add New Vendor
-                </button>
-                {this.vendorMenu()}
+                <p>
+                    <button className="dropdown-link" onClick={this.vendorMenu}><PlusOutlined /> Add New Vendor</button>
+                    {this.vendorMenu()}
+                </p>
             </div>
     }
 
@@ -153,10 +153,11 @@ class CompareProducts extends React.Component {
     displayVendor() {
         return this.state.currentVendor.map ( vendorId => {
             return (
-                <ul className='vendor-criteria' key={vendorId}>
-                    <li className='vendor-name' data-id={vendorId} onClick={this.removeVendor}>{this.state.globalState.vendor[vendorId].vendorName}
-                        <button type='text'><CloseOutlined /></button>
-                    </li>
+                <div className='vendor-criteria' key={vendorId}>
+                    <div className='vendor-name'>
+                        <li>{this.state.globalState.vendor[vendorId].vendorName}</li>
+                        <button className='remove-vendor' data-id={vendorId} onClick={this.removeVendor}><CloseOutlined /></button>
+                    </div>
 
                     {this.state.currentCriteria.map ( (criteria, idx) => {
                         if (this.state.globalState[criteria]) {    
@@ -168,7 +169,7 @@ class CompareProducts extends React.Component {
                             return <li key={criteria+idx}>{this.state.globalState.vendorCriteria[vendorId][criteria]}</li>
                         }
                     })}
-                </ul>
+                </div>
             )
         })
     }
