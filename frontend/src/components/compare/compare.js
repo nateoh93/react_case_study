@@ -27,12 +27,12 @@ class CompareProducts extends React.Component {
                     6: {'Founded': '2005', 'Key Investors': 'Ted', 'Founders': 'Kendall' },
                 },
                 vendorCriteria: {
-                    1: {'Overall Score': 6.0, 'Product Description':'Google does this', 'Funding History': 1, 'Company Info': 'google.com','Case Studies': 2},
-                    2: {'Overall Score': 4.5, 'Product Description':'Dropbox does this', 'Funding History': 2, 'Company Info': 'dropbox.com', 'Case Studies': 3},
-                    3: {'Overall Score': 6.2, 'Product Description':'Salesforce does this', 'Funding History': 3, 'Company Info': 'salesforce.com', 'Case Studies': 4},
-                    4: {'Overall Score': 6.1, 'Product Description':'Box does this', 'Funding History': 4, 'Company Info': 'box.com', 'Case Studies': 6},
-                    5: {'Overall Score': 7.0, 'Product Description':'LinkedIn does this', 'Funding History': 5, 'Company Info': 'linkedin.com', 'Case Studies': 2},
-                    6: {'Overall Score': 5.0, 'Product Description':'Twitter does this', 'Funding History': 6, 'Company Info': 'twitter.com', 'Case Studies': 1},
+                    1: {'Overall Score': 6.0, 'Product Description':'Google does this', 'Funding History': '$170M', 'Company Info': 'google.com','Case Studies': 2},
+                    2: {'Overall Score': 4.5, 'Product Description':'Dropbox does this', 'Funding History': '$100M', 'Company Info': 'dropbox.com', 'Case Studies': 3},
+                    3: {'Overall Score': 6.2, 'Product Description':'Salesforce does this', 'Funding History': '$70M', 'Company Info': 'salesforce.com', 'Case Studies': 4},
+                    4: {'Overall Score': 6.1, 'Product Description':'Box does this', 'Funding History': '$90M', 'Company Info': 'box.com', 'Case Studies': 6},
+                    5: {'Overall Score': 7.0, 'Product Description':'LinkedIn does this', 'Funding History': '$200M', 'Company Info': 'linkedin.com', 'Case Studies': 2},
+                    6: {'Overall Score': 5.0, 'Product Description':'Twitter does this', 'Funding History': '$150M', 'Company Info': 'twitter.com', 'Case Studies': 1},
                 },
                 criteria: {
                     'Overall Score': null, 
@@ -43,7 +43,7 @@ class CompareProducts extends React.Component {
                 }
             },
             currentVendor: [1, 2, 3, 4],
-            currentCriteria: ['Overall Score', 'Product Description', 'Company Info'],
+            currentCriteria: ['Overall Score', 'Product Description', 'Company Info', 'Funding History'],
             displaySubCriteria: 'no-display',
         };
         this.addCriteria = this.addCriteria.bind(this);
@@ -93,13 +93,14 @@ class CompareProducts extends React.Component {
                                 {this.state.displaySubCriteria === 'display' ? <CaretDownOutlined /> : <CaretRightOutlined />}
                             </button>
                             {criteria}
-                            <button data-name={criteria} onClick={this.removeCriteria}><CloseCircleOutlined /></button>
+                            <button className='remove-crit' data-name={criteria} onClick={this.removeCriteria}><CloseCircleOutlined /></button>
                         </li>
                         <CriteriaItem display={this.state.displaySubCriteria} subCriteria={this.state.globalState.criteria[criteria]}/>
                 </ul>)
             } else {
                 return (<li key={idx}>
-                        {criteria}<button data-name={criteria} onClick={this.removeCriteria}><CloseCircleOutlined /></button>
+                        {criteria}
+                        <button className='remove-crit' data-name={criteria} onClick={this.removeCriteria}><CloseCircleOutlined /></button>
                     </li>)
             }
         })

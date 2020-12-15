@@ -1,3 +1,7 @@
+#root {
+    font-size: 13px;
+}
+
 .table {
     margin: 35vh auto 0;
 }
@@ -26,7 +30,6 @@
 
 .criteria-dropdown li, .vendor-dropdown li {
     height: 20px;
-    /* border: none; */
 }
 
 .criteria-dropdown li:first-child, .vendor-dropdown li:first-child {
@@ -63,8 +66,6 @@ menu {
 
 .vendor-info {
     display: flex;
-    /* flex-direction: column */
-    /* border: 1px solid black; */
     width: 500px;
 }
 
@@ -84,7 +85,9 @@ li {
     border-top: 1px solid lightgrey;
     /* border-top: 1px solid black; */
     height: 40px;
-    padding-left: 5px;
+    padding: 0 5px;
+    display: flex;
+    align-items: center;
 }
 
 .vendor-criteria {
@@ -101,12 +104,12 @@ li {
 
 p {
     width: 200px;
-    height: 120px;
+    height: 100px;
     padding: 5px 0 0 5px;
 }
 
 .vendor-name {
-    height: 120px;
+    height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -126,7 +129,7 @@ p {
     position: absolute;
     top: 2%;
     left: 87%;
-    font-size: 13px;
+    font-size: 12px;
 }
 
 .dropdown-link {
@@ -142,4 +145,15 @@ p {
 
 .left-side p {
     position: relative;
+}
+
+.table-category li {
+    position: relative;
+}
+
+.remove-crit {
+    position: absolute;
+    left: 265px;
+    font-size: 12px;
+    color: red
 }
